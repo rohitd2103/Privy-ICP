@@ -30,7 +30,7 @@ function App() {
     <WalletConnectBox
   connected={connected}
   principal={principal}
-  onPlugConnect={connectPlug} // ✅ Fix this line
+  onPlugConnect={connectPlug} 
 />
 
   );
