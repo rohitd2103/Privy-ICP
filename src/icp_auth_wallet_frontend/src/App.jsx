@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import WalletConnectBox from './components/WalletConnectBox';
+import { AuthClient } from '@dfinity/auth-client';
 
 function App() {
   const [principal, setPrincipal] = useState(null);
@@ -26,13 +27,28 @@ function App() {
     }
   };
 
+  const connectInternetIdentity = async () => {
+    const authClient = await AuthClient.create();
+    await authClient.login({
+      identityProvider: 'https://identity.ic0.app', 
+      onSuccess: async () => {
+        const identity = authClient.getIdentity();
+        const principal = identity.getPrincipal().toText();
+        setPrincipal(principal);
+        setConnected(true);
+      },
+      windowOpenerFeatures: '_self',
+    });
+    
+  };
+
   return (
     <WalletConnectBox
-  connected={connected}
-  principal={principal}
-  onPlugConnect={connectPlug} 
-/>
-
+      connected={connected}
+      principal={principal}
+      onPlugConnect={connectPlug}
+      onInternetIdentityConnect={connectInternetIdentity}
+    />
   );
 }
 
