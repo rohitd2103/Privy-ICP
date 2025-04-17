@@ -1,0 +1,15 @@
+[package]
+name = "icp_auth_wallet_backend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = "0.10"
+ic-cdk = "^0.5"         # Ensure you have the latest ic-cdk version
+ic-cdk-macros = "^0.5"   # This is required for macros
+ic-cdk-timers = "0.11" # Feel free to remove this dependency if you don't need timers
