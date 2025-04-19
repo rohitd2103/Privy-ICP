@@ -43,7 +43,7 @@ const WalletConnectBox = ({
       <div className="wallet-connect-card">
         <div className="wallet-connect-header">
           <h2>Connect Your Wallet</h2>
-          <p>Choose your preferred wallet to access the platform</p>
+          <p>Choose your preferred Login Option</p>
         </div>
 
         {!connected ? (
@@ -93,9 +93,7 @@ const WalletConnectBox = ({
           </div>
         )}
 
-        <div className="wallet-help">
-          <p>Don't have a wallet? <a href="#" target="_blank" rel="noopener noreferrer">Learn more</a></p>
-        </div>
+        
       </div>
     </motion.div>
   );
