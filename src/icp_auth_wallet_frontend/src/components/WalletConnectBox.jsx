@@ -1,6 +1,27 @@
 import React from 'react';
+import { auth, googleProvider, githubProvider, signInWithPopup } from '../firebase';
 
 function WalletConnectBox({ connected, principal, onPlugConnect, onInternetIdentityConnect }) {
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      console.log("Google signed in:", user);
+    } catch (error) {
+      console.error("Google sign-in error:", error.message);
+    }
+  };
+
+  const handleGitHubLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+      console.log("GitHub signed in:", user);
+    } catch (error) {
+      console.error("GitHub sign-in error:", error.message);
+    }
+  };
+
   return (
     <div style={{
       width: '100%',
@@ -32,6 +53,21 @@ function WalletConnectBox({ connected, principal, onPlugConnect, onInternetIdent
           >
             🔐 Connect with Internet Identity
           </button>
+
+          <button
+            onClick={handleGoogleLogin}
+            style={walletButtonStyle('#22c55e')}
+          >
+            🔐 Sign in with Google
+          </button>
+
+          <button
+            onClick={handleGitHubLogin}
+            style={walletButtonStyle('#333')}
+          >
+            🐙 Sign in with GitHub
+          </button>
+
         </>
       ) : (
         <div style={{ marginTop: '1.5rem' }}>
