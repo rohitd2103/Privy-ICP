@@ -3,12 +3,12 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-        apiKey: "AIzaSyDUFqXS2O87NW7vUpKo_abhLSwxHsA-pXo",
-        authDomain: "privy-icp.firebaseapp.com",
-        projectId: "privy-icp",
-        storageBucket: "privy-icp.firebasestorage.app",
-        messagingSenderId: "552499735170",
-        appId: "1:552499735170:web:d6a698d2abcb480fb2e29b"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
