@@ -1,7 +1,14 @@
 import React from 'react';
 import { auth, googleProvider, githubProvider, signInWithPopup } from '../firebase';
+import {
+  loginWithNFID,
+  getPrincipalFromNFID,
+  isNFIDAuthenticated,
+  getDIDFromNFID,
+} from "../nfidLogin";
 
-function WalletConnectBox({ connected, principal, onPlugConnect, onInternetIdentityConnect }) {
+
+function WalletConnectBox({ connected, principal, onPlugConnect, onInternetIdentityConnect, onNFIDConnect }) {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -21,6 +28,25 @@ function WalletConnectBox({ connected, principal, onPlugConnect, onInternetIdent
       console.error("GitHub sign-in error:", error.message);
     }
   };
+
+  const handleNFIDLogin = async () => {
+    try {
+      await loginWithNFID();
+  
+      const principal = getPrincipalFromNFID();
+      const did = getDIDFromNFID(); // <-- get DID from principal
+  
+      console.log("NFID Principal:", principal);
+      console.log("Generated DID:", did);
+  
+      // Optionally pass `did` to parent or store in identity layer
+  
+    } catch (err) {
+      console.error("NFID Login failed:", err);
+    }
+  };
+  
+
 
   return (
     <div style={{
@@ -67,6 +93,11 @@ function WalletConnectBox({ connected, principal, onPlugConnect, onInternetIdent
           >
             🐙 Sign in with GitHub
           </button>
+
+          <button onClick={handleNFIDLogin} style={walletButtonStyle('#ffbc00')}>
+            🪪 Sign in with NFID
+          </button>
+
 
         </>
       ) : (
