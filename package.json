@@ -15,11 +15,13 @@
   "workspaces": [
     "src/icp_auth_wallet_frontend"
   ],
+
+  "dependencies": {
+    "@dfinity/agent": "^2.4.1",
+    "@dfinity/auth-client": "^2.4.1"
+   "framer-motion": "^12.7.4"
+  },
   "devDependencies": {
     "vite": "^6.3.2"
-  },
-  "dependencies": {
-    "@dfinity/auth-client": "^2.4.1",
-    "framer-motion": "^12.7.4"
   }
 }

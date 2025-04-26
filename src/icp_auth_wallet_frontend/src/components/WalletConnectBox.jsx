@@ -1,6 +1,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { auth, googleProvider, githubProvider, signInWithPopup } from '../firebase';
+import {
+  loginWithNFID,
+  getPrincipalFromNFID,
+  getDIDFromNFID,
+} from "../nfidLogin";
 import './WalletConnectBox.css';
 
 // Wallet Selection Modal Component
@@ -55,7 +60,7 @@ const WalletConnectBox = ({
   availableWallets,
   showWalletModal,
   setShowWalletModal,
-  onSelectWallet
+  onSelectWallet,
 }) => {
   const handleGoogleLogin = async () => {
     try {
@@ -77,6 +82,18 @@ const WalletConnectBox = ({
     }
   };
 
+  const handleNFIDLogin = async () => {
+    try {
+      await loginWithNFID();
+      const principal = getPrincipalFromNFID();
+      const did = getDIDFromNFID();
+      console.log("NFID Principal:", principal);
+      console.log("Generated DID:", did);
+    } catch (error) {
+      console.error("NFID sign-in error:", error.message);
+    }
+  };
+
   const authOptions = [
     {
       id: 'walletConnect',
@@ -95,6 +112,15 @@ const WalletConnectBox = ({
       hoverColor: '#4f46e5',
       onClick: onInternetIdentityConnect,
       loading: loading?.internetIdentity
+    },
+    {
+      id: 'nfid',
+      name: 'Sign in with NFID',
+      icon: '🪪',
+      color: '#ffbc00',
+      hoverColor: '#e0a800',
+      onClick: handleNFIDLogin,
+      loading: loading?.nfid
     },
     {
       id: 'google',
